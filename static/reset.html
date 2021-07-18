@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Reset Password Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <h2>Reset Password</h2>
+            <form action="/action_page.php" id="changePassword">
+                <div class="form-group">
+                    <label for="email">email</label>
+                    <input type="email" autocomplete = "off" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">New password</label>
+                    <input type="password" autocomplete = "off" class="form-control" id="password" placeholder="Enter password" name="password" required>
+                </div>
+              <button type="submit" value= "Submit Form" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+            <script>
+                const form =document.getElementById("changePassword");
+                form.addEventListener("submit",registerUser);
+                async function registerUser(e){
+                    e.preventDefault();
+                const email= document.getElementById("email").value;
+                const newPassword = document.getElementById("password").value;
+                const result = await fetch('/api/reset/:userId',{
+                    method: 'POST',
+                    headers:{
+                        "Content-Type": 'application/json'
+                    },
+                    body:JSON.stringify({password:newPassword,email:email})
+                }).then((r)=>r.json())
+                if(result.status === 'ok'){
+                     // everything is fine
+                     console.log("Got the token",result.data);
+                     alert('Logged in');
+                }
+                else{
+                    alert(result.error);
+                }
+                }
+            </script>
+    </body>
+</html>
