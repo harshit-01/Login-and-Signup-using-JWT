@@ -36,7 +36,7 @@
                 const username = document.getElementById("uname").value;
                 const password = document.getElementById("pwd").value;
                 const email = document.getElementById("email").value;
-                const result = await fetch('/api/register',{
+                const result = await fetch('http://localhost:3000/api/register',{
                     method: 'POST',
                     headers:{
                         "Content-Type": 'application/json'

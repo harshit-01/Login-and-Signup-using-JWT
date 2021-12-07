@@ -32,7 +32,7 @@
                     e.preventDefault();
                 const username = document.getElementById("uname").value;
                 const password = document.getElementById("pwd").value;
-                const result = await fetch('/api/login',{
+                const result = await fetch('http://localhost:3000/api/login',{
                     method: 'POST',
                     headers:{
                         "Content-Type": 'application/json'

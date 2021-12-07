@@ -8,13 +8,14 @@ const sendEmail = require("./sendEmail");
 const dotenv = require('dotenv');
 var nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken')
+const cors = require('cors')
 const app = express();
 
 dotenv.config();
 app.use("/",express.static(path.join(__dirname,'static')));
 // middleware to decode the body coming 
 app.use(express.urlencoded({extended: true }))
-  
+app.use(cors());
 app.use(express.json())
 
 
@@ -47,6 +48,7 @@ app.post('/api/register',async(req,res) => {
 })
 app.post('/api/login',async (req, res)=>{
       const {username,password} = req.body;
+    //   console.log(req.body);
       const user = await User.findOne({username}).lean();
       if(!user){
             return res.json({status:"error",error:"Invalid username/password"})
